@@ -4,9 +4,10 @@ import Main from './Main';
 import Footer from './Footer';
 import PopupTypeEdit from './PopupTypeEdit';
 import PopupTypeAdd from './PopupTypeAdd';
-import PopupTypeImage from './PopupTypeImage';
+import ImagePopup from './PopupTypeImage';
 import PopupTypeDelete from './PopupTypeDelete';
 import PopupTypeAvatar from './PopupTypeAvatar';
+import PopupWithForm from './PopupWithForm';
 import api from '../utils/Api';
 import Card from './Card';
 import '../index.css';
@@ -52,8 +53,9 @@ function App() {
       <Footer />
       <PopupTypeEdit isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} />
       <PopupTypeAdd isOpen={isAddPlacePopupOpen} onClose={closeAllPopups} />
-      <PopupTypeImage card={selectedCard} onClose={closeAllPopups} />
+      <ImagePopup card={selectedCard} onClose={closeAllPopups} />
       <PopupTypeDelete />
+      <PopupWithForm />
       <PopupTypeAvatar
         isOpen={isEditAvatarPopupOpen}
         onClose={closeAllPopups}

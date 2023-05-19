@@ -1,6 +1,6 @@
 import React from 'react';
 
-function PopupTypeImage({ card, onClose }) {
+function ImagePopup({ card, onClose }) {
   return (
     <section
       className={`popup popup_type_add ${card._id ? 'popup_opened' : ''}`}
@@ -18,4 +18,4 @@ function PopupTypeImage({ card, onClose }) {
   );
 }
 
-export default PopupTypeImage;
+export default ImagePopup;
