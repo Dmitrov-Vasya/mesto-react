@@ -1,13 +1,20 @@
-import React from 'react';
+import React from "react";
 
-function PopupTypeAdd({ onClose, isOpen }) {
-  return (
-    <section className={`popup popup_type_add ${isOpen ? 'popup_opened' : ''}`}>
+export default function PopupWithForm({
+ name,
+ popup,
+ title,
+ children,
+ forma,
+ onClose,
+ isOpen
+})
+
+ <section className={`popup popup_type_${name}`} >
       <div className="popup__container popup__container_type_add">
         <button
-          className="popup__close popup__close_type_add"
+          className="popup__close popup__close_type_${props.name}"
           type="button"
-          onClick={onClose}
         ></button>
         <h2 className="popup__title popup__title_type_add">Новое место</h2>
         <form
@@ -50,7 +57,3 @@ function PopupTypeAdd({ onClose, isOpen }) {
         </form>
       </div>
     </section>
-  );
-}
-
-export default PopupTypeAdd;

@@ -1,12 +1,15 @@
 import React from 'react';
 
-function PopupTypeEdit() {
+function PopupTypeEdit({ onClose, isOpen }) {
   return (
-    <section className="popup popup_type_edit">
+    <section
+      className={`popup popup_type_edit ${isOpen ? 'popup_opened' : ''}`}
+    >
       <div className="popup__container">
         <button
           className="popup__close popup__close_type_edit"
           type="button"
+          onClick={onClose}
         ></button>
         <h2 className="popup__title">Редактировать профиль</h2>
         <form

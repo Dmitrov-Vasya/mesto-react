@@ -1,12 +1,15 @@
 import React from 'react';
 
-function PopupTypeDelete() {
+function PopupTypeDelete({ onClose, isOpen }) {
   return (
-    <section className="popup popup_type_delete">
+    <section
+      className={`popup popup_type_delete ${isOpen ? 'popup_opened' : ''}`}
+    >
       <div className="popup__container popup__container_type_delete">
         <button
           className="popup__close popup__close_type_delete"
           type="button"
+          onClick={onClose}
         ></button>
         <h2 className="popup__title">Вы уверены?</h2>
         <form
