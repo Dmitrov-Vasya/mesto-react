@@ -55,7 +55,6 @@ function App() {
       <PopupTypeAdd isOpen={isAddPlacePopupOpen} onClose={closeAllPopups} />
       <ImagePopup card={selectedCard} onClose={closeAllPopups} />
       <PopupTypeDelete />
-      <PopupWithForm />
       <PopupTypeAvatar
         isOpen={isEditAvatarPopupOpen}
         onClose={closeAllPopups}

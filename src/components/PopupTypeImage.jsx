@@ -3,7 +3,7 @@ import React from 'react';
 function ImagePopup({ card, onClose }) {
   return (
     <section
-      className={`popup popup_type_add ${card._id ? 'popup_opened' : ''}`}
+      className={`popup popup_type_image ${card._id ? 'popup_opened' : ''}`}
     >
       <div className="popup__container popup__container_type_image">
         <button
