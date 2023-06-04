@@ -1,13 +1,22 @@
 import React from 'react';
 import PopupWithForm from './PopupWithForm';
 
-function PopupTypeAvatar({ onClose, isOpen }) {
+function PopupTypeAvatar({ onClose, isOpen, onUpdateAvatar }) {
+  // function handleSubmit(e) {
+  //   e.preventDefault();
+
+  //   onUpdateAvatar({
+  //     avatar: inputRef.current.value,
+  //   });
+  // }
+
   return (
     <PopupWithForm
       name="avatar"
       title="Обновить аватар"
       isOpen={isOpen}
       onClose={onClose}
+      // onSubmit={handleSubmit}
       textButton={'Сохранить'}
     >
       <label className="popup__field">

@@ -1,10 +1,10 @@
 import React from 'react';
 
-function ImagePopup({ card, onClose }) {
+function ImagePopup({ card, isOpen, onClose }) {
+  const popupTypeImage = `popup popup_type_img ${isOpen ? 'popup_opened' : ''}`;
+
   return (
-    <section
-      className={`popup popup_type_image ${card._id ? 'popup_opened' : ''}`}
-    >
+    <section className={popupTypeImage}>
       <div className="popup__container popup__container_type_image">
         <button
           className="popup__close popup__close_type_image"

@@ -1,13 +1,35 @@
-import React from 'react';
+import React, { useContext, useEffect } from 'react';
 import PopupWithForm from './PopupWithForm';
 
-function PopupTypeEdit({ onClose, isOpen }) {
+// import { CurrentUserContext } from '../contexts/CurrentUserContext';
+
+function PopupTypeEdit({ onClose, isOpen, onUpdateUser }) {
+  // Подписка на контекст
+  // const currentUser = useContext(CurrentUserContext);
+  // const [value, setValue] = useState({});
+  // // После загрузки текущего пользователя из API
+  // // его данные будут использованы в управляемых компонентах.
+  // useEffect(() => {
+  //   name: currentUser.name;
+  //   about: currentUser.about;
+  // }, [currentUser]);
+
+  // function handleSubmit(e) {
+  //   // Запрещаем браузеру переходить по адресу формы
+  //   e.preventDefault();
+
+  //   // Передаём значения управляемых компонентов во внешний обработчик
+  //   onUpdateUser(value);
+  //   setValue({ [evt.target.name]: '' });
+  // }
+
   return (
     <PopupWithForm
       name="edit"
       title="Редактировать профиль"
       isOpen={isOpen}
       onClose={onClose}
+      // onSubmit={handleSubmit}
       textButton={'Сохранить'}
     >
       <label className="popup__field">
