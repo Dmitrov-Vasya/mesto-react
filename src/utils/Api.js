@@ -26,13 +26,13 @@ class Api {
     }).then(this._checkResponse);
   }
 
-  editProfile({ name, info }) {
+  editProfile({ name, about }) {
     return fetch(`${this.url}users/me`, {
       method: 'PATCH',
       headers: this.headers,
       body: JSON.stringify({
         name: name,
-        about: info,
+        about: about,
       }),
     }).then(this._checkResponse);
   }
@@ -69,12 +69,12 @@ class Api {
     }).then(this._checkResponse);
   }
 
-  updateAvatar({ link }) {
+  updateAvatar({ avatar }) {
     return fetch(`${this.url}users/me/avatar`, {
       method: 'PATCH',
       headers: this.headers,
       body: JSON.stringify({
-        avatar: link,
+        avatar: avatar,
       }),
     }).then(this._checkResponse);
   }

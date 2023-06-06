@@ -1,14 +1,19 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import PopupWithForm from './PopupWithForm';
 
-function PopupTypeAvatar({ onClose, isOpen, onUpdateAvatar }) {
-  // function handleSubmit(e) {
-  //   e.preventDefault();
+export default function EditAvatarPopup({ onClose, isOpen, onUpdateAvatar }) {
+  const inputRef = useRef();
 
-  //   onUpdateAvatar({
-  //     avatar: inputRef.current.value,
-  //   });
-  // }
+  useEffect(() => {
+    inputRef.current.value = '';
+  }, [isOpen]);
+
+  function handleSubmit(evt) {
+    evt.preventDefault();
+    onUpdateAvatar({
+      avatar: inputRef.current.value,
+    });
+  }
 
   return (
     <PopupWithForm
@@ -16,7 +21,7 @@ function PopupTypeAvatar({ onClose, isOpen, onUpdateAvatar }) {
       title="Обновить аватар"
       isOpen={isOpen}
       onClose={onClose}
-      // onSubmit={handleSubmit}
+      onSubmit={handleSubmit}
       textButton={'Сохранить'}
     >
       <label className="popup__field">
@@ -27,6 +32,7 @@ function PopupTypeAvatar({ onClose, isOpen, onUpdateAvatar }) {
           type="url"
           placeholder="Ссылка на картинку"
           required
+          ref={inputRef}
         />
         <span className="avatar-input-error popup__input-error">
           Необходимо заполнить данное поле
@@ -35,5 +41,3 @@ function PopupTypeAvatar({ onClose, isOpen, onUpdateAvatar }) {
     </PopupWithForm>
   );
 }
-
-export default PopupTypeAvatar;

@@ -1,13 +1,40 @@
-import React from 'react';
 import PopupWithForm from './PopupWithForm';
+import React, { useContext, useEffect, useState } from 'react';
+import { CurrentUserContext } from '../context/CurrentUserContext';
 
-function PopupTypeAdd({ onClose, isOpen }) {
+export default function AddPlacePopup({ onClose, isOpen, onAddPlace }) {
+  const currentUser = useContext(CurrentUserContext);
+  const [name, setName] = useState('');
+  const [link, setLink] = useState('');
+
+  useEffect(() => {
+    setName(currentUser.name);
+    setLink(currentUser.link);
+  }, [currentUser, isOpen]);
+
+  function handleChangeName(e) {
+    setName(e.target.value);
+  }
+
+  function handleChangeLink(e) {
+    setLink(e.target.value);
+  }
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    onAddPlace({
+      name,
+      link: link,
+    });
+  }
+
   return (
     <PopupWithForm
       name="add"
       title="Новое место"
       isOpen={isOpen}
       onClose={onClose}
+      onSubmit={handleSubmit}
       textButton={'Сохранить'}
     >
       <label className="popup__field">
@@ -20,6 +47,8 @@ function PopupTypeAdd({ onClose, isOpen }) {
           minLength="2"
           maxLength="30"
           required
+          onChange={handleChangeName}
+          value={name || ''}
         />
         <span className="title-input-error popup__input-error">
           Необходимо заполнить данное поле
@@ -33,6 +62,8 @@ function PopupTypeAdd({ onClose, isOpen }) {
           type="url"
           placeholder="Ссылка на картинку"
           required
+          onChange={handleChangeLink}
+          value={link || ''}
         />
         <span className="url-input-error popup__input-error">
           Необходимо заполнить данное поле
@@ -41,5 +72,3 @@ function PopupTypeAdd({ onClose, isOpen }) {
     </PopupWithForm>
   );
 }
-
-export default PopupTypeAdd;

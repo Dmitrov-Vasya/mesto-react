@@ -1,27 +1,33 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import PopupWithForm from './PopupWithForm';
 
-// import { CurrentUserContext } from '../contexts/CurrentUserContext';
+import { CurrentUserContext } from '../context/CurrentUserContext';
 
-function PopupTypeEdit({ onClose, isOpen, onUpdateUser }) {
-  // Подписка на контекст
-  // const currentUser = useContext(CurrentUserContext);
-  // const [value, setValue] = useState({});
-  // // После загрузки текущего пользователя из API
-  // // его данные будут использованы в управляемых компонентах.
-  // useEffect(() => {
-  //   name: currentUser.name;
-  //   about: currentUser.about;
-  // }, [currentUser]);
+export default function EditProfilePopup({ onClose, isOpen, onUpdateUser }) {
+  const currentUser = useContext(CurrentUserContext);
+  const [name, setValueName] = useState('');
+  const [description, setValueDescription] = useState('');
 
-  // function handleSubmit(e) {
-  //   // Запрещаем браузеру переходить по адресу формы
-  //   e.preventDefault();
+  useEffect(() => {
+    setValueName(currentUser.name);
+    setValueDescription(currentUser.about);
+  }, [currentUser, isOpen]);
 
-  //   // Передаём значения управляемых компонентов во внешний обработчик
-  //   onUpdateUser(value);
-  //   setValue({ [evt.target.name]: '' });
-  // }
+  function handleChangeName(e) {
+    setValueName(e.target.value);
+  }
+
+  function handleChangeDescription(e) {
+    setValueDescription(e.target.value);
+  }
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    onUpdateUser({
+      name,
+      about: description,
+    });
+  }
 
   return (
     <PopupWithForm
@@ -29,7 +35,7 @@ function PopupTypeEdit({ onClose, isOpen, onUpdateUser }) {
       title="Редактировать профиль"
       isOpen={isOpen}
       onClose={onClose}
-      // onSubmit={handleSubmit}
+      onSubmit={handleSubmit}
       textButton={'Сохранить'}
     >
       <label className="popup__field">
@@ -42,6 +48,8 @@ function PopupTypeEdit({ onClose, isOpen, onUpdateUser }) {
           minLength="2"
           maxLength="40"
           required
+          onChange={handleChangeName}
+          value={name || ''}
         />
         <span className="name-input-error popup__input-error">
           Необходимо заполнить данное поле
@@ -57,6 +65,8 @@ function PopupTypeEdit({ onClose, isOpen, onUpdateUser }) {
           minLength="2"
           maxLength="200"
           required
+          onChange={handleChangeDescription}
+          value={description || ''}
         />
         <span className="info-input-error popup__input-error">
           Необходимо заполнить данное поле
@@ -65,5 +75,3 @@ function PopupTypeEdit({ onClose, isOpen, onUpdateUser }) {
     </PopupWithForm>
   );
 }
-
-export default PopupTypeEdit;

@@ -2,11 +2,11 @@ import React, { useState, useEffect } from 'react';
 import Header from './Header';
 import Main from './Main';
 import Footer from './Footer';
-import PopupTypeEdit from './PopupTypeEdit';
-import PopupTypeAdd from './PopupTypeAdd';
-import ImagePopup from './PopupTypeImage';
+import EditProfilePopup from './EditProfilePopup';
+import AddPlacePopup from './AddPlacePopup';
+import ImagePopup from './ImagePopup';
 import PopupTypeDelete from './PopupTypeDelete';
-import PopupTypeAvatar from './PopupTypeAvatar';
+import EditAvatarPopup from './EditAvatarPopup';
 import PopupWithForm from './PopupWithForm';
 import api from '../utils/Api';
 import '../index.css';
@@ -53,28 +53,38 @@ function App() {
   function closeAllPopups() {
     setIsEditAvatarPopupOpen(false);
     setIsEditProfilePopupOpen(false);
+    setIsDeletePopupOpen(false);
     setIsAddPlacePopupOpen(false);
+    setIsImagePopupOpen(false);
     setSelectedCard(false);
   }
 
   function handleUpdateUser(value) {
+    console.log(value);
     api
       .editProfile(value)
-      .then((res) => {
-        setCurrentUser(res);
-        closeAllPopups();
-      })
+      .then((res) => setCurrentUser(res))
       .catch((err) => console.log(err));
+    closeAllPopups();
   }
 
-  function handleUpdateAvatar(value) {
+  function handleUpdateAvatar(avatar) {
+    console.log(avatar);
     api
-      .setUserAvatar(value)
-      .then((res) => {
-        setCurrentUser(res);
-        closeAllPopups();
+      .updateAvatar(avatar)
+      .then((res) => setCurrentUser(res))
+      .catch((err) => console.log(err));
+    closeAllPopups();
+  }
+
+  function handleNewCard(card) {
+    api
+      .addNewCard(card)
+      .then((newCard) => {
+        setCards([newCard, ...cards]);
       })
       .catch((err) => console.log(err));
+    closeAllPopups();
   }
 
   function handleCardLike(card) {
@@ -88,12 +98,14 @@ function App() {
   }
 
   function handleCardDelete() {
+    console.log(selectedCard);
     api
       .deleteCard(selectedCard._id)
       .then(() => {
         setCards(cards.filter((card) => card._id !== selectedCard._id));
       })
       .catch((err) => console.log(err));
+    closeAllPopups();
   }
   function assignSelected(card) {
     handleDeletClick(card);
@@ -111,14 +123,19 @@ function App() {
           onCardClick={handleCardClick}
           onCardLike={handleCardLike}
           onCardDelete={assignSelected}
+          cards={cards}
         />
         <Footer />
-        <PopupTypeEdit
+        <EditProfilePopup
           isOpen={isEditProfilePopupOpen}
           onClose={closeAllPopups}
           onUpdateUser={handleUpdateUser}
         />
-        <PopupTypeAdd isOpen={isAddPlacePopupOpen} onClose={closeAllPopups} />
+        <AddPlacePopup
+          isOpen={isAddPlacePopupOpen}
+          onClose={closeAllPopups}
+          onAddPlace={handleNewCard}
+        />
         <ImagePopup
           card={selectedCard}
           isOpen={isImagePopupOpen}
@@ -129,7 +146,7 @@ function App() {
           onDelete={handleCardDelete}
           onClose={closeAllPopups}
         />
-        <PopupTypeAvatar
+        <EditAvatarPopup
           isOpen={isEditAvatarPopupOpen}
           onClose={closeAllPopups}
           onUpdateAvatar={handleUpdateAvatar}
