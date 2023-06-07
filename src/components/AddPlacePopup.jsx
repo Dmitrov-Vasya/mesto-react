@@ -1,16 +1,14 @@
 import PopupWithForm from './PopupWithForm';
-import React, { useContext, useEffect, useState } from 'react';
-import { CurrentUserContext } from '../context/CurrentUserContext';
+import React, { useState, useEffect } from 'react';
 
 export default function AddPlacePopup({ onClose, isOpen, onAddPlace }) {
-  const currentUser = useContext(CurrentUserContext);
   const [name, setName] = useState('');
   const [link, setLink] = useState('');
 
   useEffect(() => {
-    setName(currentUser.name);
-    setLink(currentUser.link);
-  }, [currentUser, isOpen]);
+    setName('');
+    setLink('');
+  }, [isOpen]);
 
   function handleChangeName(e) {
     setName(e.target.value);

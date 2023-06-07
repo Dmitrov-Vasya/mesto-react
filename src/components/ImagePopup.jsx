@@ -1,7 +1,9 @@
 import React from 'react';
 
 function ImagePopup({ card, isOpen, onClose }) {
-  const popupTypeImage = `popup popup_type_img ${isOpen ? 'popup_opened' : ''}`;
+  const popupTypeImage = `popup popup_type_image ${
+    isOpen ? 'popup_opened' : ''
+  }`;
 
   return (
     <section className={popupTypeImage}>
@@ -11,7 +13,7 @@ function ImagePopup({ card, isOpen, onClose }) {
           type="button"
           onClick={onClose}
         ></button>
-        <img src={card.link} alt="" className="popup__picture" />
+        <img src={card.link} alt={card.name} className="popup__picture" />
         <p className="popup__text">{card.name}</p>
       </div>
     </section>

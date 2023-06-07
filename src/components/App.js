@@ -63,16 +63,21 @@ function App() {
     console.log(value);
     api
       .editProfile(value)
-      .then((res) => setCurrentUser(res))
+      .then((res) => {
+        setCurrentUser(res);
+        closeAllPopups();
+      })
       .catch((err) => console.log(err));
-    closeAllPopups();
   }
 
   function handleUpdateAvatar(avatar) {
     console.log(avatar);
     api
       .updateAvatar(avatar)
-      .then((res) => setCurrentUser(res))
+      .then((res) => {
+        setCurrentUser(res);
+        closeAllPopups();
+      })
       .catch((err) => console.log(err));
     closeAllPopups();
   }
@@ -82,6 +87,7 @@ function App() {
       .addNewCard(card)
       .then((newCard) => {
         setCards([newCard, ...cards]);
+        closeAllPopups();
       })
       .catch((err) => console.log(err));
     closeAllPopups();
