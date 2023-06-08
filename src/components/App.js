@@ -79,7 +79,6 @@ function App() {
         closeAllPopups();
       })
       .catch((err) => console.log(err));
-    closeAllPopups();
   }
 
   function handleNewCard(card) {
@@ -90,7 +89,6 @@ function App() {
         closeAllPopups();
       })
       .catch((err) => console.log(err));
-    closeAllPopups();
   }
 
   function handleCardLike(card) {
@@ -98,9 +96,14 @@ function App() {
     const isLiked = card.likes.some((i) => i._id === currentUser._id);
 
     // Отправляем запрос в API и получаем обновлённые данные карточки
-    api.displayNumberLike(card._id, !isLiked).then((newCard) => {
-      setCards((state) => state.map((c) => (c._id === card._id ? newCard : c)));
-    });
+    api
+      .displayNumberLike(card._id, !isLiked)
+      .then((newCard) => {
+        setCards((state) =>
+          state.map((c) => (c._id === card._id ? newCard : c))
+        );
+      })
+      .catch((err) => console.log(err));
   }
 
   function handleCardDelete() {
@@ -109,9 +112,9 @@ function App() {
       .deleteCard(selectedCard._id)
       .then(() => {
         setCards(cards.filter((card) => card._id !== selectedCard._id));
+        closeAllPopups();
       })
       .catch((err) => console.log(err));
-    closeAllPopups();
   }
   function assignSelected(card) {
     handleDeletClick(card);
